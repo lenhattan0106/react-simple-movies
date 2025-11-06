@@ -5,7 +5,7 @@ function App() {
         <span className="text-primary">Home</span>
         <span>Movies</span>
       </header>
-      <section className="banner h-[400px] page-container">
+      <section className="banner h-[500px] page-container mb-20">
         <div className="relative w-full h-full rounded-lg">
           <div className="absolute inset-0 overlay bg-gradient-to-t from-[rgba(0,0,0,0.5)] to-[rgba(0,0,0,0.5)] rounded-lg"></div>
           <img
@@ -13,7 +13,7 @@ function App() {
             alt=""
             className="object-cover w-full h-full rounded-lg"
           />
-          <div className="absolute w-full text-white content left-5 bottom-5">
+          <div className="absolute w-full mb-10 text-white content left-5 bottom-5">
              <h2 className="mb-5 text-3xl font-bold">Avenger: Endgame</h2>
              <div className="flex items-center mb-8 gap-x-3">
                <span className="px-4 py-2 border border-white rounded-md">Adventure</span>
@@ -23,6 +23,48 @@ function App() {
              <button className="px-6 py-3 font-medium rounded-lg bg-primary">Watch Now</button>
           </div>
         </div>
+      </section>
+      <section className="pb-20 movies-layout page-container">
+         <h2 className="mb-10 text-3xl font-bold text-white capitalize">Now Playing</h2>
+         <div className="grid grid-cols-4 gap-10 movies-list">
+             <div className="p-3 text-white rounded-lg movies-cart bg-slate-800">
+                <img src="https://tse1.mm.bing.net/th/id/OIP.8-3tz7AdzJHIZy75mulCFgHaF7?rs=1&pid=ImgDetMain&o=7&rm=3" className="w-full h-[250px] object-cover rounded-lg mb-5" alt="" />
+                 <h3 className="mb-3 text-xl font-bold ">Spider man: Homecoming</h3>
+                 <div className="flex items-center justify-between mb-10 text-sm opacity-50">
+                   <span>2017</span>
+                   <span>7.4</span>
+                 </div>
+                 <button className="w-full px-6 py-3 font-medium capitalize rounded-lg bg-primary">Watch Now</button>
+             </div>
+         </div>
+      </section>
+        <section className="pb-20 movies-layout page-container">
+         <h2 className="mb-10 text-3xl font-bold text-white capitalize">Top Rated</h2>
+         <div className="grid grid-cols-4 gap-10 movies-list">
+             <div className="p-3 text-white rounded-lg movies-cart bg-slate-800">
+                <img src="https://tse1.mm.bing.net/th/id/OIP.8-3tz7AdzJHIZy75mulCFgHaF7?rs=1&pid=ImgDetMain&o=7&rm=3" className="w-full h-[250px] object-cover rounded-lg mb-5" alt="" />
+                 <h3 className="mb-3 text-xl font-bold ">Spider man: Homecoming</h3>
+                 <div className="flex items-center justify-between mb-10 text-sm opacity-50">
+                   <span>2017</span>
+                   <span>7.4</span>
+                 </div>
+                 <button className="w-full px-6 py-3 font-medium capitalize rounded-lg bg-primary">Watch Now</button>
+             </div>
+         </div>
+      </section>
+        <section className="pb-20 movies-layout page-container">
+         <h2 className="mb-10 text-3xl font-bold text-white capitalize">Trending</h2>
+         <div className="grid grid-cols-4 gap-10 movies-list">
+             <div className="p-3 text-white rounded-lg movies-cart bg-slate-800">
+                <img src="https://tse1.mm.bing.net/th/id/OIP.8-3tz7AdzJHIZy75mulCFgHaF7?rs=1&pid=ImgDetMain&o=7&rm=3" className="w-full h-[250px] object-cover rounded-lg mb-5" alt="" />
+                 <h3 className="mb-3 text-xl font-bold ">Spider man: Homecoming</h3>
+                 <div className="flex items-center justify-between mb-10 text-sm opacity-50">
+                   <span>2017</span>
+                   <span>7.4</span>
+                 </div>
+                 <button className="w-full px-6 py-3 font-medium capitalize rounded-lg bg-primary">Watch Now</button>
+             </div>
+         </div>
       </section>
     </>
   );
