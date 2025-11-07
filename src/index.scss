@@ -13,5 +13,8 @@
         max-width: 1280px;
         @apply mx-auto;
     }
-    
+    .movies-list .swiper-slide{
+     width: 300px;
+     height: auto;
+    }
 }
