@@ -27,7 +27,7 @@ function BannerItem({item}){
     } = item;
   return (
       <div className="relative w-full h-full rounded-lg">
-          <div className="absolute inset-0 overlay bg-gradient-to-t from-[rgba(0,0,0,0.5)] to-[rgba(0,0,0,0.5)] rounded-lg"></div>
+          <div className="absolute inset-0 overlay bg-gradient-to-t from-[rgba(0,0,0,0.5)] to-[rgba(0,0,0,0.5)] rounded-lg "></div>
           <img
             src={`https://image.tmdb.org/t/p/original/${poster_path}`}
             alt=""

@@ -9,6 +9,7 @@ import { Route, Routes } from "react-router-dom";
 import Main from "./layout/Main";
 import HomePages from "./pages/HomePages";
 import MoviesPages from "./pages/MoviesPages";
+import MovieDetailsPage from "./pages/MovieDetailsPage";
 
 function App() {
   return (
@@ -27,6 +28,10 @@ function App() {
           <Route
             path="/movies"
             element={<MoviesPages></MoviesPages>}
+          ></Route>
+          <Route
+            path="/movie/:movieId"
+            element={<MovieDetailsPage></MovieDetailsPage>}
           ></Route>
         </Route>
       </Routes>
