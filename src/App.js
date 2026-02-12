@@ -1,19 +1,16 @@
-import MoviesCard from "./components/movies/MoviesCard";
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import MoviesList from "./components/movies/MoviesList";
 import Banner from "./components/banner/Banner";
-import Header from "./layout/Header";
-import { Fragment } from "react/jsx-runtime";
+import { Fragment, lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import Main from "./layout/Main";
-import HomePages from "./pages/HomePages";
-import MoviesPages from "./pages/MoviesPages";
-import MovieDetailsPage from "./pages/MovieDetailsPage";
+const HomePage = lazy(()=> import("./pages/HomePages"));
+const MoviesPage = lazy(()=> import("./pages/MoviesPages"));
+const MovieDetailsPage = lazy(()=> import("./pages/MovieDetailsPage"));
 
 function App() {
   return (
     <Fragment>
+      <Suspense fallback={<div className="text-center text-white">Loading...</div>}>
       <Routes>
         <Route element={<Main></Main>}>
           <Route
@@ -21,13 +18,13 @@ function App() {
             element={
               <>
                 <Banner></Banner>
-                <HomePages></HomePages>
+                <HomePage></HomePage>
               </>
             }
           ></Route>
           <Route
             path="/movies"
-            element={<MoviesPages></MoviesPages>}
+            element={<MoviesPage></MoviesPage>}
           ></Route>
           <Route
             path="/movie/:movieId"
@@ -35,6 +32,7 @@ function App() {
           ></Route>
         </Route>
       </Routes>
+      </Suspense>
     </Fragment>
   );
 }

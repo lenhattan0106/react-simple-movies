@@ -1,30 +1,47 @@
 import React, { useEffect, useState } from "react";
 import MoviesList from "../components/movies/MoviesList";
 import useSWR from "swr";
-import { fetcher } from "../config";
-import MoviesCard from "../components/movies/MoviesCard";
-import useDebounce from "../hooks/useDebounced";
+import { fetcher, tmdbAPI } from "../config";
+import MoviesCard from "components/movies/MoviesCard";
+import useDebounce from "hooks/useDebounced";
+import ReactPaginate from 'react-paginate';
 
-const MoviesPages = () => {
+const itemsPerPage =20;
+const MoviesPages = () => {  
+  const [nextPage, setNextPage] = useState(1);
   const [filter, setFilter] = useState("");
-  const [url, setUrl] = useState("https://api.themoviedb.org/3/movie/popular?api_key=9a269f9058611e17907aea4dd2230cf5")
-  const filterDebounced = useDebounce(filter, 600)
-  const handleFilterChange = (e)=>{
-     setFilter(e.target.value)
-  }
-  const { data, error, isLoading } = useSWR(
-   url,
-    fetcher
-  );
-  useEffect(()=>{
-     if(filterDebounced){
-       setUrl(`https://api.themoviedb.org/3/search/movie?api_key=9a269f9058611e17907aea4dd2230cf5&query=${filterDebounced}`)
-     }
-     else{
-      setUrl("https://api.themoviedb.org/3/movie/popular?api_key=9a269f9058611e17907aea4dd2230cf5")
-     }
-  }, [filterDebounced])
+  const [url, setUrl] = useState(tmdbAPI.getMovieList("popular",nextPage));
+  const filterDebounced = useDebounce(filter, 600);
+  const handleFilterChange = (e) => {
+    setFilter(e.target.value);
+  };
+  const { data, error, isLoading } = useSWR(url, fetcher);
+  useEffect(() => {
+    if (filterDebounced) {
+      setUrl(
+       tmdbAPI.getMovieSearch(filterDebounced,nextPage)
+      );
+    } else {
+      setUrl(
+        tmdbAPI.getMovieList("popular",nextPage)
+      );
+    }
+  }, [filterDebounced, nextPage]);
   const movies = data?.results || [];
+ 
+  //pagination
+  const [pageCount, setPageCount] = useState(0)
+  const [itemOffset, setItemOffset] = useState(0);
+  useEffect(()=>{
+    if(!data || !data.total_pages) return;
+    setPageCount(data.total_pages);
+  },[data])
+
+  // Invoke when user click to request another page.
+  const handlePageClick = (event) => {
+    setNextPage(event.selected+1)
+  };
+  // const { page, total_results } = data;
   return (
     <div className="py-10 page-container">
       <div className="flex mb-10">
@@ -53,12 +70,29 @@ const MoviesPages = () => {
           </svg>
         </button>
       </div>
+      {isLoading && (
+        <div className="w-10 h-10 mx-auto border-4 rounded-full border-t-transparent border-primary animate-spin"></div>
+      )}
       <div className="grid grid-cols-4 gap-10">
-        {movies.length > 0 &&
+        {!isLoading &&
+          movies.length > 0 &&
           movies.map((item) => (
             <MoviesCard key={item.id} item={item}></MoviesCard>
           ))}
       </div>
+      <div className="mt-10">
+        <ReactPaginate
+        breakLabel="..."
+        nextLabel="next >"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={5}
+        pageCount={pageCount}
+        previousLabel="< previous"
+        renderOnZeroPageCount={null}
+        className="pagination"
+      />  
+      </div>
+
     </div>
   );
 };
