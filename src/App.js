@@ -1,30 +1,39 @@
+import "swiper/css";
+import Banner from "./components/banner/Banner";
+import { Fragment, lazy, Suspense } from "react";
+import { Route, Routes } from "react-router-dom";
+import Main from "./layout/Main";
+const HomePage = lazy(()=> import("./pages/HomePages"));
+const MoviesPage = lazy(()=> import("./pages/MoviesPages"));
+const MovieDetailsPage = lazy(()=> import("./pages/MovieDetailsPage"));
+
 function App() {
   return (
-    <>
-      <header className="flex items-center justify-center py-10 mb-10 text-white header gap-x-5">
-        <span className="text-primary">Home</span>
-        <span>Movies</span>
-      </header>
-      <section className="banner h-[400px] page-container">
-        <div className="relative w-full h-full rounded-lg">
-          <div className="absolute inset-0 overlay bg-gradient-to-t from-[rgba(0,0,0,0.5)] to-[rgba(0,0,0,0.5)] rounded-lg"></div>
-          <img
-            src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/e9c02b45-78f5-4244-a527-9c7ab905eab0/d52kxyp-ad74fb13-2e06-459c-9d26-419d20c3dedd.jpg/v1/fill/w_900,h_563,q_75,strp/the_avengers_wallpaper_by_devanthenoob_d52kxyp-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NTYzIiwicGF0aCI6IlwvZlwvZTljMDJiNDUtNzhmNS00MjQ0LWE1MjctOWM3YWI5MDVlYWIwXC9kNTJreHlwLWFkNzRmYjEzLTJlMDYtNDU5Yy05ZDI2LTQxOWQyMGMzZGVkZC5qcGciLCJ3aWR0aCI6Ijw9OTAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.u6wXuhN1nXBmpUVVDurpeNLKGj3aYGI02LNUJ0gt9BQ"
-            alt=""
-            className="object-cover w-full h-full rounded-lg"
-          />
-          <div className="absolute w-full text-white content left-5 bottom-5">
-             <h2 className="mb-5 text-3xl font-bold">Avenger: Endgame</h2>
-             <div className="flex items-center mb-8 gap-x-3">
-               <span className="px-4 py-2 border border-white rounded-md">Adventure</span>
-               <span className="px-4 py-2 border border-white rounded-md">Adventure</span>
-                <span className="px-4 py-2 border border-white rounded-md">Adventure</span>
-             </div>
-             <button className="px-6 py-3 font-medium rounded-lg bg-primary">Watch Now</button>
-          </div>
-        </div>
-      </section>
-    </>
+    <Fragment>
+      <Suspense fallback={<div className="text-center text-white">Loading...</div>}>
+      <Routes>
+        <Route element={<Main></Main>}>
+          <Route
+            path="/"
+            element={
+              <>
+                <Banner></Banner>
+                <HomePage></HomePage>
+              </>
+            }
+          ></Route>
+          <Route
+            path="/movies"
+            element={<MoviesPage></MoviesPage>}
+          ></Route>
+          <Route
+            path="/movie/:movieId"
+            element={<MovieDetailsPage></MovieDetailsPage>}
+          ></Route>
+        </Route>
+      </Routes>
+      </Suspense>
+    </Fragment>
   );
 }
 
