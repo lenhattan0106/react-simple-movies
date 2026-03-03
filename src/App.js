@@ -3,8 +3,9 @@ import Banner from "./components/banner/Banner";
 import { Fragment, lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import Main from "./layout/Main";
+import ErrorPage from "pages/ErrorPage";
 const HomePage = lazy(()=> import("./pages/HomePages"));
-const MoviesPage = lazy(()=> import("./pages/MoviesPages"));
+const MoviesPageV2 = lazy(()=> import("./pages/MoviesPagesV2"));
 const MovieDetailsPage = lazy(()=> import("./pages/MovieDetailsPage"));
 
 function App() {
@@ -24,11 +25,15 @@ function App() {
           ></Route>
           <Route
             path="/movies"
-            element={<MoviesPage></MoviesPage>}
+            element={<MoviesPageV2></MoviesPageV2>}
           ></Route>
           <Route
             path="/movie/:movieId"
             element={<MovieDetailsPage></MovieDetailsPage>}
+          ></Route>
+             <Route
+            path="*"
+            element={<ErrorPage></ErrorPage>}
           ></Route>
         </Route>
       </Routes>
